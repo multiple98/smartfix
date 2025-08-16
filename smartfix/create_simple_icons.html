@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create PWA Icons</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="download-links"></div>
+    
+    <script>
+        // Create simple PWA icons using Canvas
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const downloadLinks = document.getElementById('download-links');
+        
+        function createIcon(size) {
+            canvas.width = size;
+            canvas.height = size;
+            
+            // Create gradient background
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#007BFF');
+            gradient.addColorStop(1, '#0056b3');
+            
+            // Fill background
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Add border radius effect
+            ctx.globalCompositeOperation = 'destination-in';
+            ctx.beginPath();
+            const radius = size * 0.2;
+            ctx.roundRect(0, 0, size, size, radius);
+            ctx.fill();
+            ctx.globalCompositeOperation = 'source-over';
+            
+            // Draw tool icon (simple shapes)
+            ctx.fillStyle = 'white';
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = size * 0.08;
+            
+            // Draw wrench shape
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const toolSize = size * 0.4;
+            
+            // Wrench handle
+            ctx.beginPath();
+            ctx.moveTo(centerX - toolSize/2, centerY + toolSize/2);
+            ctx.lineTo(centerX + toolSize/2, centerY - toolSize/2);
+            ctx.stroke();
+            
+            // Wrench head (circle)
+            ctx.beginPath();
+            ctx.arc(centerX - toolSize/2, centerY + toolSize/2, size * 0.08, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Add "SF" text for larger icons
+            if (size >= 128) {
+                ctx.font = `bold ${size * 0.2}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillStyle = 'white';
+                ctx.fillText('SF', centerX, centerY + toolSize * 0.7);
+            }
+            
+            // Convert to blob and create download link
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `icon-${size}x${size}.png`;
+                a.textContent = `Download ${size}x${size} icon`;
+                a.style.display = 'block';
+                a.style.margin = '5px 0';
+                downloadLinks.appendChild(a);
+            });
+        }
+        
+        // Create all sizes
+        sizes.forEach(size => {
+            setTimeout(() => createIcon(size), 100);
+        });
+        
+        // Create favicon
+        setTimeout(() => {
+            canvas.width = 32;
+            canvas.height = 32;
+            const gradient = ctx.createLinearGradient(0, 0, 32, 32);
+            gradient.addColorStop(0, '#007BFF');
+            gradient.addColorStop(1, '#0056b3');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 32, 32);
+            
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 16px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('SF', 16, 16);
+            
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'favicon-32x32.png';
+                a.textContent = 'Download Favicon (32x32)';
+                a.style.display = 'block';
+                a.style.margin = '5px 0';
+                a.style.fontWeight = 'bold';
+                downloadLinks.appendChild(a);
+            });
+        }, 500);
+        
+        // Instructions
+        const instructions = document.createElement('div');
+        instructions.innerHTML = `
+            <h3>Instructions:</h3>
+            <ol>
+                <li>Download all the icons by clicking the links below</li>
+                <li>Save them in the <code>/smartfix/img/</code> folder</li>
+                <li>Rename <code>favicon-32x32.png</code> to <code>favicon.ico</code></li>
+                <li>Your PWA icons will be ready!</li>
+            </ol>
+        `;
+        instructions.style.margin = '20px 0';
+        instructions.style.padding = '20px';
+        instructions.style.background = '#f0f0f0';
+        instructions.style.borderRadius = '8px';
+        document.body.insertBefore(instructions, downloadLinks);
+    </script>
+</body>
+</html>

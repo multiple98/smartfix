@@ -1,0 +1,274 @@
+<!-- Hero Section Authentication CTA Example -->
+<!-- Add this inside your existing hero-content div -->
+
+<div class="hero-auth-cta">
+  <?php if (!isset($_SESSION['user_id'])): ?>
+    <div class="auth-invitation">
+      <div class="auth-invitation-content">
+        <h3><i class="fas fa-star"></i> Join SmartFix Today</h3>
+        <p>Get priority booking, track repairs, and earn loyalty rewards</p>
+        
+        <div class="hero-auth-buttons">
+          <a href="auth.php?form=register" class="hero-auth-btn primary pulse">
+            <i class="fas fa-rocket"></i>
+            <div class="btn-content">
+              <strong>Start Free Account</strong>
+              <small>Join 500+ happy customers</small>
+            </div>
+          </a>
+          
+          <a href="auth.php?form=login" class="hero-auth-btn secondary">
+            <i class="fas fa-sign-in-alt"></i>
+            <div class="btn-content">
+              <strong>Member Login</strong>
+              <small>Access your account</small>
+            </div>
+          </a>
+        </div>
+        
+        <div class="trust-indicators">
+          <div class="trust-item">
+            <i class="fas fa-shield-check"></i>
+            <span>100% Secure</span>
+          </div>
+          <div class="trust-item">
+            <i class="fas fa-clock"></i>
+            <span>2 Min Setup</span>
+          </div>
+          <div class="trust-item">
+            <i class="fas fa-gift"></i>
+            <span>No Hidden Fees</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php else: ?>
+    <!-- Welcome back message for logged-in users -->
+    <div class="welcome-back">
+      <div class="welcome-content">
+        <h3><i class="fas fa-hand-wave"></i> Welcome back, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h3>
+        <p>What can we help you with today?</p>
+        
+        <div class="user-quick-actions">
+          <a href="services.php" class="quick-action-btn">
+            <i class="fas fa-tools"></i> Request Service
+          </a>
+          <a href="user/dashboard.php" class="quick-action-btn">
+            <i class="fas fa-tachometer-alt"></i> View Dashboard
+          </a>
+          <a href="shop.php" class="quick-action-btn">
+            <i class="fas fa-shopping-cart"></i> Shop Parts
+          </a>
+        </div>
+      </div>
+    </div>
+  <?php endif; ?>
+</div>
+
+<style>
+/* Hero Authentication CTA Styles */
+.hero-auth-cta {
+  margin-top: 40px;
+  padding: 30px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.auth-invitation-content {
+  text-align: center;
+  color: white;
+}
+
+.auth-invitation-content h3 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #ffcc00;
+}
+
+.auth-invitation-content p {
+  font-size: 18px;
+  margin-bottom: 25px;
+  opacity: 0.9;
+}
+
+.hero-auth-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 400px;
+  margin: 0 auto 25px;
+}
+
+.hero-auth-btn {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 18px 25px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.hero-auth-btn.primary {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  box-shadow: 0 5px 20px rgba(40,167,69,0.3);
+}
+
+.hero-auth-btn.primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(40,167,69,0.4);
+}
+
+.hero-auth-btn.secondary {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border-color: rgba(255,255,255,0.3);
+}
+
+.hero-auth-btn.secondary:hover {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.5);
+}
+
+.btn-content strong {
+  display: block;
+  font-size: 16px;
+}
+
+.btn-content small {
+  display: block;
+  font-size: 12px;
+  opacity: 0.8;
+  font-weight: normal;
+}
+
+.trust-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  opacity: 0.8;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.trust-item i {
+  color: #28a745;
+}
+
+/* Welcome Back Section */
+.welcome-back {
+  text-align: center;
+}
+
+.welcome-content h3 {
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: #ffcc00;
+}
+
+.welcome-content p {
+  font-size: 18px;
+  margin-bottom: 25px;
+  opacity: 0.9;
+}
+
+.user-quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.quick-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.quick-action-btn:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+  color: white;
+}
+
+/* Pulse Animation for Primary Button */
+.pulse {
+  animation: heroPulse 2s infinite;
+}
+
+@keyframes heroPulse {
+  0% { box-shadow: 0 5px 20px rgba(40,167,69,0.3); }
+  50% { box-shadow: 0 5px 30px rgba(40,167,69,0.6); }
+  100% { box-shadow: 0 5px 20px rgba(40,167,69,0.3); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .hero-auth-cta {
+    margin-top: 30px;
+    padding: 20px;
+  }
+  
+  .auth-invitation-content h3 {
+    font-size: 24px;
+  }
+  
+  .auth-invitation-content p {
+    font-size: 16px;
+  }
+  
+  .trust-indicators {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .user-quick-actions {
+    flex-direction: column;
+  }
+  
+  .quick-action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-auth-buttons {
+    max-width: 100%;
+  }
+  
+  .hero-auth-btn {
+    padding: 15px 20px;
+  }
+  
+  .btn-content strong {
+    font-size: 14px;
+  }
+  
+  .trust-indicators {
+    gap: 10px;
+  }
+  
+  .trust-item {
+    font-size: 12px;
+  }
+}
+</style>

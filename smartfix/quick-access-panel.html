@@ -1,0 +1,128 @@
+<!-- Quick Access Panel Example -->
+<div class="quick-access-panel" id="quickAccessPanel">
+  <div class="quick-access-toggle" onclick="toggleQuickAccess()">
+    <i class="fas fa-user"></i>
+  </div>
+  
+  <div class="quick-access-content">
+    <?php if (!isset($_SESSION['user_id'])): ?>
+      <div class="quick-auth">
+        <h4><i class="fas fa-rocket"></i> Get Started</h4>
+        <a href="auth.php?form=register" class="quick-btn register">
+          <i class="fas fa-user-plus"></i> Create Account
+        </a>
+        <a href="auth.php?form=login" class="quick-btn login">
+          <i class="fas fa-sign-in-alt"></i> Sign In
+        </a>
+        <a href="admin/admin_login.php" class="quick-btn admin">
+          <i class="fas fa-shield-alt"></i> Admin Access
+        </a>
+      </div>
+    <?php else: ?>
+      <div class="quick-user">
+        <div class="user-avatar-large">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <h4><?php echo htmlspecialchars($_SESSION['username']); ?></h4>
+        <div class="quick-actions">
+          <a href="user/dashboard.php" class="quick-btn">Dashboard</a>
+          <a href="services.php" class="quick-btn">New Service</a>
+          <a href="logout.php" class="quick-btn logout">Logout</a>
+        </div>
+      </div>
+    <?php endif; ?>
+  </div>
+</div>
+
+<style>
+.quick-access-panel {
+  position: fixed;
+  top: 50%;
+  right: -300px;
+  transform: translateY(-50%);
+  width: 280px;
+  background: white;
+  border-radius: 15px 0 0 15px;
+  box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+  transition: right 0.3s ease;
+  z-index: 9999;
+}
+
+.quick-access-panel.active {
+  right: 0;
+}
+
+.quick-access-toggle {
+  position: absolute;
+  left: -50px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #007BFF, #0056b3);
+  border-radius: 50% 0 0 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quick-access-toggle:hover {
+  background: linear-gradient(135deg, #0056b3, #004085);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.quick-access-content {
+  padding: 25px;
+}
+
+.quick-auth h4 {
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.quick-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  text-align: center;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.quick-btn.register {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+}
+
+.quick-btn.login {
+  background: linear-gradient(135deg, #007BFF, #0056b3);
+  color: white;
+}
+
+.quick-btn.admin {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  color: white;
+}
+
+.quick-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+</style>
+
+<script>
+function toggleQuickAccess() {
+  document.getElementById('quickAccessPanel').classList.toggle('active');
+}
+</script>
